@@ -1,0 +1,74 @@
+extends layout
+
+block content
+    h1 Candidate List
+    // Form to add a new candidate
+    form(action='/add', method='post', class='form-container')
+      label(for='name') Name:
+      input(type='text', id='name', name='name', required)
+      input(type='submit', value='Add Candidate')
+
+    // Filter candidates by name and ID
+    div(class="filters")
+      form(action='/', method='get', class='form-container')
+        div
+        label(for='filterCandidate') Filter by Candidate:
+        select(id='filterCandidate', name='filterCandidate')
+          option(value='') All Candidates
+          each candidate in candidates
+            option(value=candidate.name)= candidate.name
+        input(type='submit', value='Filter')
+
+        label(for='filterCandidateId') Filter by Candidate ID:
+        select(id='filterCandidateId', name='filterCandidateId')
+          option(value='') All Candidates
+          each candidate in candidates
+            option(value=candidate.id)= candidate.id
+        input(type='submit', value='Filter')
+
+      // Filter tasks by name
+      form(action='/', method='get', class='form-container')
+        label(for='filterTask') Filter by Task:
+        select(id='filterTask', name='filterTask')
+          option(value='') All Tasks
+          each task in tasks
+            option(value=task.task, selected=(task.task === selectedTask))= task.task
+        input(type='submit', value='Filter')
+
+    // Sort candidates by ID or Name
+    form(action='/', method='get', class='form-container')
+      label Sort by:
+      button(type='submit', name='sortBy', value='id') ID
+      button(type='submit', name='sortBy', value='name') Name
+
+    // Table to display candidates and their tasks
+    table
+      thead
+        tr
+          th ID
+          th Name
+          th Tasks
+          th Action
+
+      tbody
+        each candidate in candidates
+          if (!filterCandidate || candidate.name.toLowerCase().includes(filterCandidate.toLowerCase()))
+            if (!filterCandidateId || candidate.id === parseInt(filterCandidateId))
+              tr
+                td #{candidate.id}
+                td #{candidate.name}
+                td
+                  each task in candidate.tasks
+                    p.task
+                      | Task: #{task.task}
+                      if task.completed
+                        span.completed Completed
+                      else
+                        span.incomplete Incomplete
+                      if !task.completed
+                        a(href=`/markCompleted/${candidate.id}/${task.task}`, class='mark-complete') Mark as Completed
+                td
+                  a(href=`/edit/${candidate.id}`, class='action-btn edit-btn') Edit
+                  a(href=`/delete/${candidate.id}`, class='action-btn delete-btn') Delete
+
+
