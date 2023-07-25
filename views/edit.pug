@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1 Edit Candidate
+
+    // Form to edit candidate name
+    form(action=`/update/${candidate.id}`, method='post', class='form-container')
+      label(for='name') Name:
+      input(type='text', id='name', name='name', value=candidate.name, required)
+      input(type='submit', value='Update Candidate')
