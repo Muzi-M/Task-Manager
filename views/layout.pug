@@ -4,9 +4,8 @@ html
     title Task Management Application
     link(rel='stylesheet', href='/style.css')
     script(src='https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js') // Add Axios for making API requests
-    script(src='/js/weatherAPI.js') // Include the weather.js file here
   body
     header
       p#weather-container Weather: Loading...
-
-    block content
+    script(src='/dist/weatherAPI.bundle.js') // Include the bundled weatherAPI.js here
+  block content
