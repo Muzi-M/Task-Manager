@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -18,8 +19,11 @@
   },
   "homepage": "https://github.com/Muzi-M/Task-Manager#readme",
   "devDependencies": {
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
     "body-parser": "^1.20.2",

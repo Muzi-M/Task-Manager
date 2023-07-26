@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const path = require("path"); // Import the 'path' module
 
 const app = express();
 const PORT = 3000;
@@ -9,6 +10,11 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "pug");
 app.set("views", "./views");
+
+// Serve the 'weatherAPI.js' file
+app.get("/js/weatherAPI.js", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/js/weatherAPI.js"));
+});
 
 // data for candidates and tasks
 let candidates = [];
