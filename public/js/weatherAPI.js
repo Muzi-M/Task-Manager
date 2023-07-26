@@ -1,23 +1,23 @@
-function updateWeatherData() {
+window.updateWeatherData = function () {
   const weatherContainer = document.getElementById("weather-container");
   const cityName = "Cape Town";
-  const apiKey = "ef88820bb5d38cdcc2117972cae6cc4b";
+  const apiKey = process.env.WEATHER_API_KEY; // Access the API key from the .env file
   const units = "metric";
-  const weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${units}`;
+  const weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${units}&callback=updateWeather`;
 
-  axios
-    .get(weatherApiUrl)
-    .then((response) => {
-      const weatherData = response.data;
-      const temperature = weatherData.main.temp;
-      const description = weatherData.weather[0].description;
-      weatherContainer.innerHTML = `Weather in ${cityName}: ${temperature}°C, ${description}`;
-    })
-    .catch((error) => {
-      console.error("Error fetching weather data:", error);
-    });
-}
+  const script = document.createElement("script");
+  script.src = weatherApiUrl;
+  document.body.appendChild(script);
+};
 
-updateWeatherData();
+window.updateWeather = function (data) {
+  const weatherContainer = document.getElementById("weather-container");
+  const temperature = data.main.temp;
+  const description = data.weather[0].description;
+  weatherContainer.innerHTML = `Weather in Cape Town: ${temperature}°C, ${description}`;
+};
+
+// Call the function here
+window.updateWeatherData();
 // Update weather data every 5 seconds (5000 milliseconds)
-setInterval(updateWeatherData, 5000);
+setInterval(window.updateWeatherData, 5000);
