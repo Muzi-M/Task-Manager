@@ -7,8 +7,46 @@ h1 {
   text-align: center;
 }
 
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+button + button {
+  margin-left: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 50%;
+  padding: 10px;
+  margin: 5px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 4%;
+}
+.filter-options {
+  display: flex;
+  margin-right: 2%;
+  margin-bottom: 2%;
+}
 .form-container {
   margin-bottom: 20px;
+  display: flex;
   gap: 15px;
 }
 
